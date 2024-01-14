@@ -1,6 +1,6 @@
 import express from "express";
 import databaseConnect from "./config/dbConnect.js";
-import livro from "./models/livro.js";
+import routes from "./routes/index.js";
 
 const connection = await databaseConnect();
 
@@ -13,16 +13,7 @@ connection.once("open", () => {
 });
 
 const app = express();
-app.use(express.json());
-
-app.get("/", (req, res) => {
-  res.status(200).send("Home: Curso de Node");
-});
-
-app.get("/livros", async (req, res) => {
-  const booksList = await livro.find({})
-  res.status(200).json(booksList);
-});
+routes(app)
 
 app.get("/livros/:id", (req, res) => {
   const index = buscaLivro(req.params.id);
