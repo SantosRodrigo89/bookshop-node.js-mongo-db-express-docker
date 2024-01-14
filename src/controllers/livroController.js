@@ -36,9 +36,7 @@ class LivroController {
         ...novoLivro,
         autor: { ...livroEncontrado._doc },
       };
-
       const livroCriado = await livro.create(livroCompleto);
-
       res
         .status(201)
         .json({ message: 'criado com sucesso', livro: livroCriado });
@@ -50,6 +48,10 @@ class LivroController {
   static async atualizarLivro(req, res, next) {
     try {
       const id = req.params.id;
+      const livroEncontrado = await livro.findById(id);
+      if (!livroEncontrado) {
+        next(new NaoEncontrado('Id livro não localizado'));
+      }
       await livro.findByIdAndUpdate(id, req.body);
       res.status(200).json({ message: 'livro atualizado' });
     } catch (error) {
@@ -60,6 +62,10 @@ class LivroController {
   static async excluirLivro(req, res, next) {
     try {
       const id = req.params.id;
+      const livroEncontrado = await livro.findById(id);
+      if (!livroEncontrado) {
+        next(new NaoEncontrado('Id livro não localizado'));
+      }
       await livro.findByIdAndDelete(id);
       res.status(200).json({ message: 'livro deletado' });
     } catch (error) {
