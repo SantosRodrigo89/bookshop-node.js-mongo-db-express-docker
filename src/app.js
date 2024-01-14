@@ -1,32 +1,19 @@
 import express from "express";
+import databaseConnect from "./config/dbConnect.js";
+import routes from "./routes/index.js";
+
+const connection = await databaseConnect();
+
+connection.on("error", (err) => {
+  console.error("connection error", err);
+});
+
+connection.once("open", () => {
+  console.log("connection success");
+});
 
 const app = express();
-app.use(express.json());
-
-const livros = [
-  {
-    id: 1,
-    titulo: "O Senhor dos Anéis",
-  },
-  {
-    id: 2,
-    titulo: "O Hobbit",
-  },
-];
-
-function buscaLivro(id) {
-  return livros.findIndex((livro) => {
-    return livro.id === Number(id);
-  });
-}
-
-app.get("/", (req, res) => {
-  res.status(200).send("Curso de Node!!!!!!!");
-});
-
-app.get("/livros", (req, res) => {
-  res.status(200).json(livros);
-});
+routes(app)
 
 app.get("/livros/:id", (req, res) => {
   const index = buscaLivro(req.params.id);
@@ -47,7 +34,7 @@ app.put("/livros/:id", (req, res) => {
 app.delete("/livros/:id", (req, res) => {
   const index = buscaLivro(req.params.id);
   livros.splice(index, 1);
-  res.send(200).send("Livro removido com sucesso");
+  res.status(200).send("Livro removido com sucesso");
 });
 
 export default app;
