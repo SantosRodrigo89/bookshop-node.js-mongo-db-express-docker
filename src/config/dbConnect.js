@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 async function databaseConnect() {
   try {
-    await mongoose.connect("mongodb+srv://admin:admin123@cluster0.xvqppbu.mongodb.net/livraria?retryWrites=true&w=majority", {
+    await mongoose.connect(process.env.DB_CONNECTION_STRING, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
