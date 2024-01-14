@@ -1,5 +1,5 @@
-import livro from "../models/Livro.js";
-import { autor } from "../models/Autor.js";
+import livro from '../models/Livro.js';
+import { autor } from '../models/Autor.js';
 
 class LivroController {
   static async listarLivros(req, res) {
@@ -30,7 +30,7 @@ class LivroController {
     try {
       const autorEncontrado = await autor.findById(novoLivro.autor);
       if (!autorEncontrado) {
-        return res.status(404).json({ message: "Autor não encontrado" });
+        return res.status(404).json({ message: 'Autor não encontrado' });
       }
       const livroCompleto = {
         ...novoLivro,
@@ -39,7 +39,7 @@ class LivroController {
       const livroCriado = await livro.create(livroCompleto);
       res
         .status(201)
-        .json({ message: "criado com sucesso", livro: livroCriado });
+        .json({ message: 'criado com sucesso', livro: livroCriado });
     } catch (error) {
       res
         .status(500)
@@ -51,7 +51,7 @@ class LivroController {
     try {
       const id = req.params.id;
       await livro.findByIdAndUpdate(id, req.body);
-      res.status(200).json({ message: "livro atualizado" });
+      res.status(200).json({ message: 'livro atualizado' });
     } catch (error) {
       res
         .status(500)
@@ -63,7 +63,7 @@ class LivroController {
     try {
       const id = req.params.id;
       await livro.findByIdAndDelete(id);
-      res.status(200).json({ message: "livro deletado" });
+      res.status(200).json({ message: 'livro deletado' });
     } catch (error) {
       res
         .status(500)
@@ -79,8 +79,8 @@ class LivroController {
       res.status(200).json(livrosPorEditora);
     } catch (error) {
       res
-      .status(500)
-      .json({ message: `${error.message} - falha na busca` });
+        .status(500)
+        .json({ message: `${error.message} - falha na busca` });
     }
   }
 }

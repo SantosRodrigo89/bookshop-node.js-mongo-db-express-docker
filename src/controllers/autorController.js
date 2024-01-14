@@ -1,4 +1,4 @@
-import { autor } from "../models/Autor.js";
+import { autor } from '../models/Autor.js';
 
 class AutorController {
   static async listarAutores(req, res) {
@@ -27,7 +27,7 @@ class AutorController {
   static async cadastrarAutor(req, res) {
     try {
       const novoAutor = await autor.create(req.body);
-      res.status(201).json({ message: "criado com sucesso", autor: novoAutor });
+      res.status(201).json({ message: 'criado com sucesso', autor: novoAutor });
     } catch (error) {
       res
         .status(500)
@@ -39,7 +39,7 @@ class AutorController {
     try {
       const id = req.params.id;
       await autor.findByIdAndUpdate(id, req.body);
-      res.status(200).json({ message: "autor atualizado" });
+      res.status(200).json({ message: 'autor atualizado' });
     } catch (error) {
       res
         .status(500)
@@ -51,7 +51,7 @@ class AutorController {
     try {
       const id = req.params.id;
       await autor.findByIdAndDelete(id);
-      res.status(200).json({ message: "autor deletado" });
+      res.status(200).json({ message: 'autor deletado' });
     } catch (error) {
       res
         .status(500)

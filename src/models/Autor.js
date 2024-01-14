@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const autorSchema = new mongoose.Schema(
   {
@@ -9,6 +9,6 @@ const autorSchema = new mongoose.Schema(
   { versionKey: false }
 );
 
-const autor = mongoose.model("autores", autorSchema);
+const autor = mongoose.model('autores', autorSchema);
 
 export { autor, autorSchema };

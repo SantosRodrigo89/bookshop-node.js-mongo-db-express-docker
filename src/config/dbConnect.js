@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 async function databaseConnect() {
   try {
@@ -7,10 +7,10 @@ async function databaseConnect() {
       useUnifiedTopology: true,
     });
 
-    console.log("Conectado ao MongoDB com sucesso!");
+    console.log('Conectado ao MongoDB com sucesso!');
     return mongoose.connection;
   } catch (error) {
-    console.error("Erro ao conectar ao MongoDB:", error);
+    console.error('Erro ao conectar ao MongoDB:', error);
     throw error;
   }
 }
