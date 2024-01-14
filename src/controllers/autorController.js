@@ -1,3 +1,4 @@
+import NaoEncontrado from '../errors/NaoEncontrado.js';
 import { autor } from '../models/Autor.js';
 
 class AutorController {
@@ -15,7 +16,7 @@ class AutorController {
       const id = req.params.id;
       const autorEncontrado = await autor.findById(id);
       if (!autorEncontrado) {
-        return res.status(404).json({ message: 'Id autor não localizado' });
+        next(new NaoEncontrado('Id autor não localizado'));
       }
       res.status(200).json(autorEncontrado);
     } catch (error) {
