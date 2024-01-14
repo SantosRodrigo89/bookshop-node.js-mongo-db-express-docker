@@ -15,4 +15,9 @@ connection.once('open', () => {
 const app = express();
 routes(app);
 
+// eslint-disable-next-line no-unused-vars
+app.use((erro, req, res, next)=> {
+  res.status(500).send({message: 'Erro interno servidor'});
+});
+
 export default app;

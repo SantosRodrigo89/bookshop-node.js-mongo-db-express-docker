@@ -1,4 +1,5 @@
 import { autor } from '../models/Autor.js';
+import mongoose from 'mongoose';
 
 class AutorController {
   static async listarAutores(req, res) {
@@ -16,8 +17,17 @@ class AutorController {
     try {
       const id = req.params.id;
       const autorEncontrado = await autor.findById(id);
+      if (!autorEncontrado) {
+        return res.status(404).json({ message: 'Id autor não localizado' });
+      }
       res.status(200).json(autorEncontrado);
     } catch (error) {
+      if (error instanceof mongoose.Error.CastError) {
+        res
+          .status(400)
+          .send({ message: 'Um ou mais dados específicos estão incorretos' });
+      }
+
       res
         .status(500)
         .json({ message: `${error.message} - falha na requisição do autor` });
