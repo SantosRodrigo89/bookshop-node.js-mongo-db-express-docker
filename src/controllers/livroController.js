@@ -1,5 +1,4 @@
-import { livro } from '../models/index.js';
-import { autor } from '../models/index.js';
+import { autor, livro } from '../models/index.js';
 import NaoEncontrado from '../errors/NaoEncontrado.js';
 
 class LivroController {
@@ -74,20 +73,29 @@ class LivroController {
   }
 
   static async listarLivroPorFiltro(req, res, next) {
-    const { editora, titulo } = req.query;
-
-    const busca = {};
-
-    if (editora) busca.editora = editora;
-    if (titulo) busca.titulo = { $regex: titulo, $options: 'i' };
+    const busca = processaBusca(req.query);
 
     try {
-      const livrosPorEditora = await livro.find(busca);
-      res.status(200).json(livrosPorEditora);
+      const livrosPorParametro = await livro.find(busca);
+      res.status(200).json(livrosPorParametro);
     } catch (error) {
       next(error);
     }
   }
+}
+
+function processaBusca(params) {
+  const { editora, titulo, minPaginas, maxPaginas } = params;
+
+  const busca = {};
+
+  if (editora) busca.editora = editora;
+  if (titulo) busca.titulo = { $regex: titulo, $options: 'i' };
+  if (minPaginas || maxPaginas) busca.paginas = {};
+  if (minPaginas) busca.paginas.$gte = minPaginas;
+  if (maxPaginas) busca.paginas.$lte = maxPaginas;
+
+  return busca;
 }
 
 export default LivroController;
