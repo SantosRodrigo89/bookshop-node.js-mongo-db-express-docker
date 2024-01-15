@@ -1,5 +1,5 @@
-import livro from '../models/Livro.js';
-import { autor } from '../models/Autor.js';
+import { livro } from '../models/index.js';
+import { autor } from '../models/index.js';
 import NaoEncontrado from '../errors/NaoEncontrado.js';
 
 class LivroController {
@@ -73,10 +73,16 @@ class LivroController {
     }
   }
 
-  static async listarLivroPorEditora(req, res, next) {
-    const editora = req.query.editora;
+  static async listarLivroPorFiltro(req, res, next) {
+    const { editora, titulo } = req.query;
+
+    const busca = {};
+
+    if (editora) busca.editora = editora;
+    if (titulo) busca.titulo = titulo;
+
     try {
-      const livrosPorEditora = await livro.find({ editora: editora });
+      const livrosPorEditora = await livro.find(busca);
       res.status(200).json(livrosPorEditora);
     } catch (error) {
       next(error);
