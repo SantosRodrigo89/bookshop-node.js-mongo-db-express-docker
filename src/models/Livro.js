@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import { autorSchema } from './Autor.js';
 
 const livroSchema = new mongoose.Schema(
   {
@@ -26,7 +25,11 @@ const livroSchema = new mongoose.Schema(
           'O número de páginas deve estar entre 10 e 5000. Valor fornecido {VALUE}',
       },
     },
-    autor: autorSchema,
+    autor: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'autores',
+      required: [true, 'O(a) autor(a) é obrigatório'],
+    },
   },
   { versionKey: false }
 );
