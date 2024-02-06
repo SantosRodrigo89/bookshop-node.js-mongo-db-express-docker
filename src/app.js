@@ -1,8 +1,8 @@
 import express from 'express';
 import databaseConnect from './config/dbConnect.js';
 import routes from './routes/index.js';
-import manipuladorDeErros from './middlewars/manipuladorDeErros.js';
-import manipulador404 from './middlewars/manipulador404.js';
+import manipuladorDeErros from './middlewares/middlewares.js';
+import manipulador404 from './middlewares/manipulador404.js';
 
 const connection = await databaseConnect();
 
