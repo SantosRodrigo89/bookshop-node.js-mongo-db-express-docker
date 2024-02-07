@@ -2,7 +2,7 @@
 
 ## Description
 
-This is a simple Node.js application using Express.js and MongoDB. It provides a starting point for building applications that require RESTful APIs with MongoDB as the database backend.
+This is a simple Node.js application using Express.js and MongoDB. It provides a starting point for building applications that require RESTful APIs with MongoDB as the database backend. Also has docker containers.
 
 ## Installation
 
