@@ -34,38 +34,6 @@ npm run dev
 
 This will start the server using Nodemon, which will automatically restart the server whenever changes are detected in the code.
 
-## Testing
-
-To execute tests, run:
-
-```
-npm test
-```
-
-## Docker
-
-To containerize the application using Docker, you can build the Docker image using the provided Dockerfile:
-
-```
-docker build -t express-mongodb .
-```
-
-Then, you can run the container using:
-
-```
-docker run -p <host-port>:<container-port> express-mongodb
-```
-
-Replace `<host-port>` with the port on your host machine where you want to expose the application, and `<container-port>` with the port on which the application is running inside the container.
-
-## Linting
-
-To lint the code using ESLint, run:
-
-```
-npm run lint
-```
-
 ## Dependencies
 
 - dotenv: ^16.3.1
